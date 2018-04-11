@@ -1,8 +1,7 @@
 import cv2
 import matplotlib.pyplot as plt
 import os
-
-%matplotlib inline
+from PIL import ImageOps
 
 path = "/home/prakash/Titan/images"
 
@@ -68,7 +67,7 @@ def get_directories(path):
     return os.listdir(path)
 
 def create_directory(path, name):
-    directory = path + "/" + name + "01"
+    directory = path + "/" + name 
     
     if not os.path.exists(directory):
         os.makedirs(directory)  
@@ -82,6 +81,13 @@ def get_all_images(path):
 
 def save_image(padded_image, name, new_directory):
     cv2.imwrite(new_directory + "/" + name, padded_image)
+
+def equalize_img(img):
+    return ImageOps.equalize(img)  
+
+def get_pil_image(path, name):
+    img = Image.open(path + name)  
+    return img
 
 if __name__ == "__main__":
     directories = get_directories(path)
@@ -97,8 +103,10 @@ if __name__ == "__main__":
                 img=img
             )
             padded_image = padding(img=img)
+            #pil_img = get_pil_image(path = path)
+            equalized_img = equalize_img(img)
             save_image(
-                padded_image = padded_image, 
+                padded_image = equalized_img, 
                 name = image,
                 new_directory = new_directory)
     
