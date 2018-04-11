@@ -81,7 +81,9 @@ def get_all_images(path):
     return  file_names          
 
 def save_image(padded_image, name, new_directory):
-    cv2.imwrite(new_directory + "/" + name, padded_image)
+    file_path = new_directory + "/" + name, padded_image
+    if not os.path.exists(file_path):
+        cv2.imwrite(file_path) 
 
 if __name__ == "__main__":
     directories = get_directories(path)
