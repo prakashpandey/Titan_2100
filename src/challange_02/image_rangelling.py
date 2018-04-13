@@ -80,7 +80,9 @@ def get_all_images(path):
     return  file_names          
 
 def save_image(padded_image, name, new_directory):
-    cv2.imwrite(new_directory + "/" + name, padded_image)
+    file_path = new_directory + "/" + name, padded_image
+    if not os.path.exists(file_path):
+        cv2.imwrite(file_path) 
 
 def equalize_img(img):
     return ImageOps.equalize(img)  
